@@ -1,17 +1,26 @@
-package robo;
+package simulator.code;
 public class Robo {
-    final String nome;    
-    final float peso;
-    final float velocidadeMax = 5;
-    final float pesoCargaMax = 20;
-    final String tipoTracao = "esteira";
-    int orientacao;
+    private final String nome;    
+    private final float peso;
+    private final float velocidadeMax = 5;
+    private final float pesoCargaMax = 20;
+    private final String tipoTracao = "esteira";
+    private int orientacao;
     static final int FRENTE = 0;
     static final int ATRAS = 1;
     static final int ESQUERDA = 2;
     static final int DIREITA = 3;
     float posicaoX;
     float posicaoY;
+    public float getPosicaoX(){
+        return posicaoX;
+    }
+    public float getPosicaoY(){
+        return posicaoY;
+    }
+    public int getOrientacao(){
+        return orientacao;
+    }
     public Robo(){
         this.nome = "R-ATM";
         this.peso = 70;
@@ -29,6 +38,20 @@ public class Robo {
         this.peso = peso;
         this.posicaoX = posX;
         this.posicaoY = posY;
+    }
+    @Override
+    public String toString(){
+        return "Robo{" + "posicaoX = " + posicaoX + ", posicaoY = "
+                + posicaoY + ". orientacao = " + orientacao + '}';
+    }
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Robo){
+            Robo robo = (Robo)obj;
+            return this.nome.equals(robo.nome);
+        }else{
+            return false;
+        }
     }
     public void move(float posY){
         this.posicaoY = posY;
