@@ -5,9 +5,13 @@ public class Robo {
     final float velocidadeMax = 5;
     final float pesoCargaMax = 20;
     final String tipoTracao = "esteira";
+    int orientacao;
+    static final int FRENTE = 0;
+    static final int ATRAS = 1;
+    static final int ESQUERDA = 2;
+    static final int DIREITA = 3;
     float posicaoX;
     float posicaoY;
-
     public Robo(){
         this.nome = "R-ATM";
         this.peso = 70;
@@ -33,18 +37,20 @@ public class Robo {
         this.posicaoX = posX;
         this.posicaoY = posY;
     }
-    public void printStatus(){
-        System.out.println("-----------Info R-ATM----------");
-        System.out.println("Nome do Robô: " + nome);
-        System.out.println("Peso do Robô: " + peso);
-        System.out.println("Velocidade Max: " + velocidadeMax);
-        System.out.println("Carga Max: " + pesoCargaMax);
-        System.out.println("Tipo de Tração: " + tipoTracao);
-        System.out.println("Posição X do Robô: " + posicaoX);
-        System.out.println("Posição Y do Robô: " + posicaoY);
-        System.out.println("-------------------------------");
+    public void setOrientacao(char tecla){
+        if(tecla == 'w'){
+            this.orientacao = FRENTE;
+        }else if (tecla == 's'){
+            this.orientacao = ATRAS;
+        }else if(tecla == 'a'){
+            this.orientacao = ESQUERDA;
+        }else if(tecla == 'd'){
+            this.orientacao = DIREITA;
+        }
     }
-    public static void main(String[] args) {
-        
-    }
+        public void printPos(){
+            System.out.println("posicao x = " + this.posicaoX);
+            System.out.println("posicao y = " + this.posicaoY);
+            System.out.println("-----------------");
+        }
 }
