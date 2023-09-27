@@ -1,79 +1,131 @@
 package simulator.code;
-public class Robo {
-    private final String nome;    
-    private final float peso;
-    private final float velocidadeMax = 5;
-    private final float pesoCargaMax = 20;
-    private final String tipoTracao = "esteira";
-    private int orientacao;
-    static final int FRENTE = 0;
-    static final int ATRAS = 1;
-    static final int ESQUERDA = 2;
-    static final int DIREITA = 3;
-    float posicaoX;
-    float posicaoY;
-    public float getPosicaoX(){
+public final class Robo extends RoboIdeia{
+    
+    public Robo() {
+        this.setNome("R-ATM");
+        this.setPeso(50);
+        this.setPesoCargaMax(20);
+        this.setPosicaoX(50);
+        this.setPosicaoY(50);
+        this.setTipoTracao("esteira");
+        this.setVelocidadeMax(5);
+    }
+    
+    public Robo(String nome, int peso, int pesoCargaMax, String tipoTracao,
+                int velocidadeMax) {
+        this.setNome(nome);
+        this.setPeso(peso);
+        this.setPesoCargaMax(pesoCargaMax);
+        this.setTipoTracao(tipoTracao);
+        this.setVelocidadeMax(velocidadeMax);
+        this.setPosicaoX(50);
+        this.setPosicaoY(50);
+    }
+    
+    public String getNome() {
+    return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public float getPosicaoX() {
         return posicaoX;
     }
-    public float getPosicaoY(){
+
+    public void setPosicaoX(float posicaoX) {
+        this.posicaoX = posicaoX;
+    }
+
+    public float getPosicaoY() {
         return posicaoY;
     }
-    public int getOrientacao(){
+
+    public void setPosicaoY(float posicaoY) {
+        this.posicaoY = posicaoY;
+    }
+
+    public int getOrientacao() {
         return orientacao;
     }
-    public Robo(){
-        this.nome = "R-ATM";
-        this.peso = 70;
-        this.posicaoX = 50;
-        this.posicaoY = 50;
+
+    public void setOrientacao(int orientacao) {
+        this.orientacao = orientacao;
     }
-    public Robo(String nome, float peso){
-        this.nome = nome;
+
+    public float getVelocidadeMax() {
+        return velocidadeMax;
+    }
+
+    public void setVelocidadeMax(float velocidadeMax) {
+        this.velocidadeMax = velocidadeMax;
+    }
+
+    public float getPesoCargaMax() {
+        return pesoCargaMax;
+    }
+
+    public void setPesoCargaMax(float pesoCargaMax) {
+        this.pesoCargaMax = pesoCargaMax;
+    }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
         this.peso = peso;
-        this.posicaoX = 50;
-        this.posicaoY = 50;
     }
-    public Robo(String nome, float peso, float posX, float posY){
-        this.nome = nome;
-        this.peso = peso;
-        this.posicaoX = posX;
-        this.posicaoY = posY;
+
+    public String getTipoTracao() {
+        return tipoTracao;
     }
+
+    public void setTipoTracao(String tipoTracao) {
+        this.tipoTracao = tipoTracao;
+    }
+    
     @Override
-    public String toString(){
-        return "Robo{" + "posicaoX = " + posicaoX + ", posicaoY = "
-                + posicaoY + ". orientacao = " + orientacao + '}';
+    public void move(float posX, float posY) {
+        if(Float.isNaN(posX) || Float.isNaN(posY) ||
+        Float.isInfinite(posX) || Float.isInfinite(posY)) {
+            throw new IllegalArgumentException ("Args não válidos");
+        }
+        this.setPosicaoX(this.getPosicaoX() + posX);
+        this.setPosicaoY(this.getPosicaoY() + posY);
     }
+    
     @Override
-    public boolean equals(Object obj){
-        if(obj instanceof Robo){
-            Robo robo = (Robo)obj;
-            return this.nome.equals(robo.nome);
-        }else{
-            return false;
+    
+    public void moveX(float dist) {
+        if(Float.isNaN(dist) || Float.isInfinite(dist)) {
+            throw new IllegalArgumentException("Args não válido");
+        }
+        this.setPosicaoY(this.getPosicaoX() + dist);
+    }
+
+    @Override
+    public void moveY(float dist) {
+        if(Float.isNaN(dist) || Float.isInfinite(dist)) {
+            throw new IllegalArgumentException("Args não válido");
+        }
+        this.setPosicaoY(this.getPosicaoY() + dist);
+    }
+
+    public void setOrientacao(char tecla) {
+        if(tecla == 'w') {
+            this.setOrientacao(super.FRENTE);
+            moveY(this.getVelocidadeMax());
+        }else if(tecla == 's') {
+            this.setOrientacao(super.ATRAS);
+            moveY(-this.getVelocidadeMax());
+        }else if(tecla == 'a') {
+            this.setOrientacao(super.ESQUERDA);
+            moveX(-this.getVelocidadeMax());
+        }else if(tecla == 'd') {
+            this.setOrientacao(super.DIREITA);
+            moveX(this.getVelocidadeMax());
         }
     }
-    public void move(float posY){
-        this.posicaoY = posY;
-    }
-    public void move(float posX, float posY){
-        this.posicaoX = posX;
-        this.posicaoY = posY;
-    }
-    public void setOrientacao(char tecla){
-        if(tecla == 'w'){
-            this.orientacao = FRENTE;
-        }else if (tecla == 's'){
-            this.orientacao = ATRAS;
-        }else if(tecla == 'a'){
-            this.orientacao = ESQUERDA;
-        }else if(tecla == 'd'){
-            this.orientacao = DIREITA;
-        }
-    }
-        public void printPos(){
-            System.out.println("posicao x = " + this.posicaoX);
-            System.out.println("posicao y = " + this.posicaoY);
-            System.out.println("-----------------");
-        }
 }
