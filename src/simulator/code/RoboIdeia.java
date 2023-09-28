@@ -2,8 +2,8 @@ package simulator.code;
 public abstract class RoboIdeia {
     
     protected String nome;
-    protected float posicaoX;
-    protected float posicaoY;
+    protected float posicaoX = 50;
+    protected float posicaoY = 50;
     protected int orientacao;
     final protected int FRENTE = 1;
     final protected int ATRAS = 2;
@@ -17,5 +17,6 @@ public abstract class RoboIdeia {
     public abstract void move(float posX, float posY);
     public abstract void moveX(float dist);
     public abstract void moveY(float dist);
+    public abstract void printPos();
 }
 

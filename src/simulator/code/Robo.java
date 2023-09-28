@@ -2,88 +2,20 @@ package simulator.code;
 public final class Robo extends RoboIdeia{
     
     public Robo() {
-        this.setNome("R-ATM");
-        this.setPeso(50);
-        this.setPesoCargaMax(20);
-        this.setPosicaoX(50);
-        this.setPosicaoY(50);
-        this.setTipoTracao("esteira");
-        this.setVelocidadeMax(5);
+        super.nome = ("R-ATM");
+        super.peso = (50);
+        super.pesoCargaMax = 20;
+        super.tipoTracao = "esteira";
+        super.velocidadeMax = 5;
     }
     
     public Robo(String nome, int peso, int pesoCargaMax, String tipoTracao,
                 int velocidadeMax) {
-        this.setNome(nome);
-        this.setPeso(peso);
-        this.setPesoCargaMax(pesoCargaMax);
-        this.setTipoTracao(tipoTracao);
-        this.setVelocidadeMax(velocidadeMax);
-        this.setPosicaoX(50);
-        this.setPosicaoY(50);
-    }
-    
-    public String getNome() {
-    return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public float getPosicaoX() {
-        return posicaoX;
-    }
-
-    public void setPosicaoX(float posicaoX) {
-        this.posicaoX = posicaoX;
-    }
-
-    public float getPosicaoY() {
-        return posicaoY;
-    }
-
-    public void setPosicaoY(float posicaoY) {
-        this.posicaoY = posicaoY;
-    }
-
-    public int getOrientacao() {
-        return orientacao;
-    }
-
-    public void setOrientacao(int orientacao) {
-        this.orientacao = orientacao;
-    }
-
-    public float getVelocidadeMax() {
-        return velocidadeMax;
-    }
-
-    public void setVelocidadeMax(float velocidadeMax) {
+        super.nome = (nome);
+        super.peso = (peso);
+        super.pesoCargaMax = pesoCargaMax;
+        super.tipoTracao = "´tipoTracao";
         this.velocidadeMax = velocidadeMax;
-    }
-
-    public float getPesoCargaMax() {
-        return pesoCargaMax;
-    }
-
-    public void setPesoCargaMax(float pesoCargaMax) {
-        this.pesoCargaMax = pesoCargaMax;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    public String getTipoTracao() {
-        return tipoTracao;
-    }
-
-    public void setTipoTracao(String tipoTracao) {
-        this.tipoTracao = tipoTracao;
     }
     
     @Override
@@ -92,17 +24,16 @@ public final class Robo extends RoboIdeia{
         Float.isInfinite(posX) || Float.isInfinite(posY)) {
             throw new IllegalArgumentException ("Args não válidos");
         }
-        this.setPosicaoX(this.getPosicaoX() + posX);
-        this.setPosicaoY(this.getPosicaoY() + posY);
+        super.posicaoX += posX;
+        super.posicaoY += posY;
     }
     
     @Override
-    
     public void moveX(float dist) {
         if(Float.isNaN(dist) || Float.isInfinite(dist)) {
             throw new IllegalArgumentException("Args não válido");
         }
-        this.setPosicaoY(this.getPosicaoX() + dist);
+        super.posicaoX += dist;
     }
 
     @Override
@@ -110,22 +41,28 @@ public final class Robo extends RoboIdeia{
         if(Float.isNaN(dist) || Float.isInfinite(dist)) {
             throw new IllegalArgumentException("Args não válido");
         }
-        this.setPosicaoY(this.getPosicaoY() + dist);
+        super.posicaoY += dist;
+    }
+    
+    @Override
+    public void printPos() {
+        System.out.println("Posicao x: " + super.posicaoX);
+        System.out.println("Posicao y: " + super.posicaoY);
     }
 
     public void setOrientacao(char tecla) {
         if(tecla == 'w') {
-            this.setOrientacao(super.FRENTE);
-            moveY(this.getVelocidadeMax());
+            super.orientacao = super.FRENTE;
+            moveY(super.velocidadeMax);
         }else if(tecla == 's') {
-            this.setOrientacao(super.ATRAS);
-            moveY(-this.getVelocidadeMax());
+            super.orientacao = super.ATRAS;
+            moveY(- super.velocidadeMax);
         }else if(tecla == 'a') {
-            this.setOrientacao(super.ESQUERDA);
-            moveX(-this.getVelocidadeMax());
+            super.orientacao = super.ESQUERDA;
+            moveX(- super.velocidadeMax);
         }else if(tecla == 'd') {
-            this.setOrientacao(super.DIREITA);
-            moveX(this.getVelocidadeMax());
+            super.orientacao = super.DIREITA;
+            moveX(super.velocidadeMax);
         }
     }
 }
